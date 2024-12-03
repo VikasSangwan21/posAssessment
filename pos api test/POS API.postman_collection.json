@@ -7,405 +7,540 @@
 	},
 	"item": [
 		{
-			"name": "List Countries",
-			"event": [
+			"name": "Countries",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response should be an array\", () => {\r",
-							"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Each item should have valid CountryCode and CountryName\", () => {\r",
-							"    const response = pm.response.json();\r",
-							"    \r",
-							"    response.forEach(item => {\r",
-							"        // Validate keys exist\r",
-							"        pm.expect(item).to.have.property(\"CountryCode\");\r",
-							"        pm.expect(item).to.have.property(\"CountryName\");\r",
-							"        \r",
-							"        // Validate types\r",
-							"        pm.expect(item.CountryCode).to.be.a(\"string\");\r",
-							"        pm.expect(item.CountryName).to.be.a(\"string\");\r",
-							"\r",
-							"        // Validate non-empty values\r",
-							"        pm.expect(item.CountryCode).to.not.be.empty;\r",
-							"        pm.expect(item.CountryName).to.not.be.empty;\r",
-							"    });\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Validate specific entries exist\", () => {\r",
-							"    const response = pm.response.json();\r",
-							"\r",
-							"    const entries = [\r",
-							"        { CountryCode: \"IN\", CountryName: \"India\" },\r",
-							"        { CountryCode: \"US\", CountryName: \"United States\" },\r",
-							"        { CountryCode: \"MY\", CountryName: \"Malaysia\" }\r",
-							"    ];\r",
-							"\r",
-							"    entries.forEach(entry => {\r",
-							"        pm.expect(response).to.deep.include(entry);\r",
-							"    });\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Validate unique CountryCodes\", () => {\r",
-							"    const response = pm.response.json();\r",
-							"    const countryCodes = response.map(item => item.CountryCode);\r",
-							"    const uniqueCountryCodes = [...new Set(countryCodes)];\r",
-							"    pm.expect(countryCodes.length).to.equal(uniqueCountryCodes.length);\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{baseUri}}/countries",
-					"host": [
-						"{{baseUri}}"
+					"name": "List Countries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should be an array\", () => {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each item should have valid CountryCode and CountryName\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    \r",
+									"    response.forEach(item => {\r",
+									"        // Validate keys exist\r",
+									"        pm.expect(item).to.have.property(\"CountryCode\");\r",
+									"        pm.expect(item).to.have.property(\"CountryName\");\r",
+									"        \r",
+									"        // Validate types\r",
+									"        pm.expect(item.CountryCode).to.be.a(\"string\");\r",
+									"        pm.expect(item.CountryName).to.be.a(\"string\");\r",
+									"\r",
+									"        // Validate non-empty values\r",
+									"        pm.expect(item.CountryCode).to.not.be.empty;\r",
+									"        pm.expect(item.CountryName).to.not.be.empty;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate specific entries exist\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"\r",
+									"    const entries = [\r",
+									"        { CountryCode: \"IN\", CountryName: \"India\" },\r",
+									"        { CountryCode: \"US\", CountryName: \"United States\" },\r",
+									"        { CountryCode: \"MY\", CountryName: \"Malaysia\" }\r",
+									"    ];\r",
+									"\r",
+									"    entries.forEach(entry => {\r",
+									"        pm.expect(response).to.deep.include(entry);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate unique CountryCodes\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    const countryCodes = response.map(item => item.CountryCode);\r",
+									"    const uniqueCountryCodes = [...new Set(countryCodes)];\r",
+									"    pm.expect(countryCodes.length).to.equal(uniqueCountryCodes.length);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUri\", \"https://www-api.pos.com.my/api\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
 					],
-					"path": [
-						"countries"
-					]
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUri}}/countries",
+							"host": [
+								"{{baseUri}}"
+							],
+							"path": [
+								"countries"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
 			"name": "GetStateByPostcode",
-			"event": [
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response should be an array\", () => {\r",
-							"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Each item should have valid stateNm, stateCd, city, and postCode\", () => {\r",
-							"    const response = pm.response.json();\r",
-							"\r",
-							"    response.forEach(item => {\r",
-							"        // Validate keys exist\r",
-							"        pm.expect(item).to.have.property(\"stateNm\");\r",
-							"        pm.expect(item).to.have.property(\"stateCd\");\r",
-							"        pm.expect(item).to.have.property(\"city\");\r",
-							"        pm.expect(item).to.have.property(\"postCode\");\r",
-							"        \r",
-							"        // Validate types\r",
-							"        pm.expect(item.stateNm).to.be.a(\"string\");\r",
-							"        pm.expect(item.stateCd).to.be.a(\"string\");\r",
-							"        pm.expect(item.city).to.be.a(\"string\");\r",
-							"        pm.expect(item.postCode).to.be.a(\"string\");\r",
-							"\r",
-							"        // Validate non-empty values\r",
-							"        pm.expect(item.stateNm).to.not.be.empty;\r",
-							"        pm.expect(item.stateCd).to.not.be.empty;\r",
-							"        pm.expect(item.city).to.not.be.empty;\r",
-							"        pm.expect(item.postCode).to.not.be.empty;\r",
-							"    });\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Validate specific entry exists\", () => {\r",
-							"    const response = pm.response.json();\r",
-							"    const expectedEntry = {\r",
-							"        stateNm: \"Selangor\",\r",
-							"        stateCd: \"SEL\",\r",
-							"        city: \"PETALING JAYA\",\r",
-							"        postCode: \"47800\"\r",
-							"    };\r",
-							"\r",
-							"    pm.expect(response).to.deep.include(expectedEntry);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"postCode\": \"47800\"}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "GetStateByPostcode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should be an array\", () => {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each item should have valid stateNm, stateCd, city, and postCode\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"\r",
+									"    response.forEach(item => {\r",
+									"        // Validate keys exist\r",
+									"        pm.expect(item).to.have.property(\"stateNm\");\r",
+									"        pm.expect(item).to.have.property(\"stateCd\");\r",
+									"        pm.expect(item).to.have.property(\"city\");\r",
+									"        pm.expect(item).to.have.property(\"postCode\");\r",
+									"        \r",
+									"        // Validate types\r",
+									"        pm.expect(item.stateNm).to.be.a(\"string\");\r",
+									"        pm.expect(item.stateCd).to.be.a(\"string\");\r",
+									"        pm.expect(item.city).to.be.a(\"string\");\r",
+									"        pm.expect(item.postCode).to.be.a(\"string\");\r",
+									"\r",
+									"        // Validate non-empty values\r",
+									"        pm.expect(item.stateNm).to.not.be.empty;\r",
+									"        pm.expect(item.stateCd).to.not.be.empty;\r",
+									"        pm.expect(item.city).to.not.be.empty;\r",
+									"        pm.expect(item.postCode).to.not.be.empty;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate specific entry exists\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    const expectedEntry = {\r",
+									"        stateNm: \"Selangor\",\r",
+									"        stateCd: \"SEL\",\r",
+									"        city: \"PETALING JAYA\",\r",
+									"        postCode: \"47800\"\r",
+									"    };\r",
+									"\r",
+									"    pm.expect(response).to.deep.include(expectedEntry);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUri\", \"https://www-api.pos.com.my/api\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUri}}/getStateByPostcode",
-					"host": [
-						"{{baseUri}}"
 					],
-					"path": [
-						"getStateByPostcode"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetStateByPostcodeInvalid",
-			"event": [
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"postCode\": \"47800\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUri}}/getStateByPostcode",
+							"host": [
+								"{{baseUri}}"
+							],
+							"path": [
+								"getStateByPostcode"
+							]
+						}
+					},
+					"response": []
+				},
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is not 200\", function () {\r",
-							"  pm.response.to.not.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Response structure is valid\", () => {\r",
-							"    const response = pm.response.json();\r",
-							"\r",
-							"    // Validate top-level keys\r",
-							"    pm.expect(response).to.have.property(\"data\");\r",
-							"    pm.expect(response).to.have.property(\"error\");\r",
-							"\r",
-							"    // Validate `data` is null\r",
-							"    pm.expect(response.data).to.be.null;\r",
-							"\r",
-							"    // Validate `error` structure\r",
-							"    pm.expect(response.error).to.have.property(\"status\");\r",
-							"    pm.expect(response.error).to.have.property(\"name\");\r",
-							"    pm.expect(response.error).to.have.property(\"message\");\r",
-							"\r",
-							"    // Validate `error` values\r",
-							"    pm.expect(response.error.status).to.equal(400);\r",
-							"    pm.expect(response.error.name).to.equal(\"Error\");\r",
-							"    pm.expect(response.error.message).to.equal(\"Post Code Not Exist\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"HTTP status code is 400\", () => {\r",
-							"    pm.expect(pm.response.code).to.equal(400);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"postCode\": \"44\"}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "GetStateByPostcodeInvalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is not 200\", function () {\r",
+									"  pm.response.to.not.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response structure is valid\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"\r",
+									"    // Validate top-level keys\r",
+									"    pm.expect(response).to.have.property(\"data\");\r",
+									"    pm.expect(response).to.have.property(\"error\");\r",
+									"\r",
+									"    // Validate `data` is null\r",
+									"    pm.expect(response.data).to.be.null;\r",
+									"\r",
+									"    // Validate `error` structure\r",
+									"    pm.expect(response.error).to.have.property(\"status\");\r",
+									"    pm.expect(response.error).to.have.property(\"name\");\r",
+									"    pm.expect(response.error).to.have.property(\"message\");\r",
+									"\r",
+									"    // Validate `error` values\r",
+									"    pm.expect(response.error.status).to.equal(400);\r",
+									"    pm.expect(response.error.name).to.equal(\"Error\");\r",
+									"    pm.expect(response.error.message).to.equal(\"Post Code Not Exist\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"HTTP status code is 400\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUri\", \"https://www-api.pos.com.my/api\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUri}}/getStateByPostcode",
-					"host": [
-						"{{baseUri}}"
 					],
-					"path": [
-						"getStateByPostcode"
-					]
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"postCode\": \"44\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUri}}/getStateByPostcode",
+							"host": [
+								"{{baseUri}}"
+							],
+							"path": [
+								"getStateByPostcode"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
 			"name": "CalculatePrice",
-			"event": [
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Response should be an array\", () => {\r",
-							"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Each item should have valid delivery details\", () => {\r",
-							"    const response = pm.response.json();\r",
-							"\r",
-							"    response.forEach(item => {\r",
-							"        // Validate keys exist\r",
-							"        pm.expect(item).to.have.property(\"deliveryService\");\r",
-							"        pm.expect(item).to.have.property(\"zone\");\r",
-							"        pm.expect(item).to.have.property(\"estimateDelivery\");\r",
-							"        pm.expect(item).to.have.property(\"HandlingCharge\");\r",
-							"        pm.expect(item).to.have.property(\"FuelCharge\");\r",
-							"        pm.expect(item).to.have.property(\"EssCharge\");\r",
-							"        pm.expect(item).to.have.property(\"totalCharge\");\r",
-							"        pm.expect(item).to.have.property(\"postage\");\r",
-							"        pm.expect(item).to.have.property(\"maxWeight\");\r",
-							"        pm.expect(item).to.have.property(\"limitOfInsuran\");\r",
-							"        pm.expect(item).to.have.property(\"trackNTrace\");\r",
-							"        pm.expect(item).to.have.property(\"name\");\r",
-							"        pm.expect(item).to.have.property(\"showOutletLocatorButton\");\r",
-							"        pm.expect(item).to.have.property(\"isDomestic\");\r",
-							"        pm.expect(item).to.have.property(\"totalAmount\");\r",
-							"\r",
-							"        // Validate types\r",
-							"        pm.expect(item.deliveryService).to.be.a(\"string\");\r",
-							"        pm.expect(item.zone).to.be.a(\"string\");\r",
-							"        pm.expect(item.estimateDelivery).to.be.a(\"string\");\r",
-							"        pm.expect(item.HandlingCharge).to.be.a(\"string\");\r",
-							"        pm.expect(item.FuelCharge).to.be.a(\"string\");\r",
-							"        pm.expect(item.EssCharge).to.be.a(\"string\");\r",
-							"        pm.expect(item.totalCharge).to.be.a(\"string\");\r",
-							"        pm.expect(item.postage).to.be.a(\"string\");\r",
-							"        pm.expect(item.maxWeight).to.be.a(\"string\");\r",
-							"        pm.expect(item.limitOfInsuran).to.be.a(\"string\");\r",
-							"        pm.expect(item.trackNTrace).to.be.a(\"string\");\r",
-							"        pm.expect(item.name).to.be.a(\"string\");\r",
-							"        pm.expect(item.showOutletLocatorButton).to.be.a(\"boolean\");\r",
-							"        pm.expect(item.isDomestic).to.be.a(\"boolean\");\r",
-							"        pm.expect(item.totalAmount).to.be.a(\"string\");\r",
-							"\r",
-							"        // Validate specific values\r",
-							"        pm.expect(item.trackNTrace).to.equal(\"YES\");\r",
-							"    });\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Validate specific services exist\", () => {\r",
-							"    const response = pm.response.json();\r",
-							"    const expectedServices = [\r",
-							"        \"EMS - Merchandise\",\r",
-							"        \"Parcel (Air)\",\r",
-							"        \"Parcel (Surface)\"\r",
-							"    ];\r",
-							"\r",
-							"    const deliveryServices = response.map(item => item.deliveryService);\r",
-							"    expectedServices.forEach(service => {\r",
-							"        pm.expect(deliveryServices).to.include(service);\r",
-							"    });\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"country\": \"India\", \"weight\": 17}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "CalculatePrice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response should be an array\", () => {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each item should have valid delivery details\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"\r",
+									"    response.forEach(item => {\r",
+									"        // Validate keys exist\r",
+									"        pm.expect(item).to.have.property(\"deliveryService\");\r",
+									"        pm.expect(item).to.have.property(\"zone\");\r",
+									"        pm.expect(item).to.have.property(\"estimateDelivery\");\r",
+									"        pm.expect(item).to.have.property(\"HandlingCharge\");\r",
+									"        pm.expect(item).to.have.property(\"FuelCharge\");\r",
+									"        pm.expect(item).to.have.property(\"EssCharge\");\r",
+									"        pm.expect(item).to.have.property(\"totalCharge\");\r",
+									"        pm.expect(item).to.have.property(\"postage\");\r",
+									"        pm.expect(item).to.have.property(\"maxWeight\");\r",
+									"        pm.expect(item).to.have.property(\"limitOfInsuran\");\r",
+									"        pm.expect(item).to.have.property(\"trackNTrace\");\r",
+									"        pm.expect(item).to.have.property(\"name\");\r",
+									"        pm.expect(item).to.have.property(\"showOutletLocatorButton\");\r",
+									"        pm.expect(item).to.have.property(\"isDomestic\");\r",
+									"        pm.expect(item).to.have.property(\"totalAmount\");\r",
+									"\r",
+									"        // Validate types\r",
+									"        pm.expect(item.deliveryService).to.be.a(\"string\");\r",
+									"        pm.expect(item.zone).to.be.a(\"string\");\r",
+									"        pm.expect(item.estimateDelivery).to.be.a(\"string\");\r",
+									"        pm.expect(item.HandlingCharge).to.be.a(\"string\");\r",
+									"        pm.expect(item.FuelCharge).to.be.a(\"string\");\r",
+									"        pm.expect(item.EssCharge).to.be.a(\"string\");\r",
+									"        pm.expect(item.totalCharge).to.be.a(\"string\");\r",
+									"        pm.expect(item.postage).to.be.a(\"string\");\r",
+									"        pm.expect(item.maxWeight).to.be.a(\"string\");\r",
+									"        pm.expect(item.limitOfInsuran).to.be.a(\"string\");\r",
+									"        pm.expect(item.trackNTrace).to.be.a(\"string\");\r",
+									"        pm.expect(item.name).to.be.a(\"string\");\r",
+									"        pm.expect(item.showOutletLocatorButton).to.be.a(\"boolean\");\r",
+									"        pm.expect(item.isDomestic).to.be.a(\"boolean\");\r",
+									"        pm.expect(item.totalAmount).to.be.a(\"string\");\r",
+									"\r",
+									"        // Validate specific values\r",
+									"        pm.expect(item.trackNTrace).to.equal(\"YES\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate specific services exist\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    const expectedServices = [\r",
+									"        \"EMS - Merchandise\",\r",
+									"        \"Parcel (Air)\",\r",
+									"        \"Parcel (Surface)\"\r",
+									"    ];\r",
+									"\r",
+									"    const deliveryServices = response.map(item => item.deliveryService);\r",
+									"    expectedServices.forEach(service => {\r",
+									"        pm.expect(deliveryServices).to.include(service);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUri\", \"https://www-api.pos.com.my/api\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUri}}/price",
-					"host": [
-						"{{baseUri}}"
 					],
-					"path": [
-						"price"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "CalculatePriceInvalid",
-			"event": [
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"country\": \"India\", \"weight\": 17}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUri}}/price",
+							"host": [
+								"{{baseUri}}"
+							],
+							"path": [
+								"price"
+							]
+						}
+					},
+					"response": []
+				},
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Response should be an array\", () => {\r",
-							"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"country\": \"India\", \"weight\": 47}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "CalculatePriceOverWeight",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response should be an array\", () => {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUri\", \"https://www-api.pos.com.my/api\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUri}}/price",
-					"host": [
-						"{{baseUri}}"
 					],
-					"path": [
-						"price"
-					]
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"country\": \"India\", \"weight\": 47}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUri}}/price",
+							"host": [
+								"{{baseUri}}"
+							],
+							"path": [
+								"price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CalculatePriceInvalidWeight",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 when weight is missing\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Error structure is valid\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    \r",
+									"    // Validate top-level keys\r",
+									"    pm.expect(response).to.have.property(\"data\").that.is.null;\r",
+									"    pm.expect(response).to.have.property(\"error\");\r",
+									"\r",
+									"    // Validate error object structure\r",
+									"    pm.expect(response.error).to.have.property(\"status\", 400);\r",
+									"    pm.expect(response.error).to.have.property(\"name\", \"Error\");\r",
+									"    pm.expect(response.error).to.have.property(\"message\", \"Weight is required\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUri\", \"https://www-api.pos.com.my/api\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"country\": \"India\", \"weight\": 0}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUri}}/price",
+							"host": [
+								"{{baseUri}}"
+							],
+							"path": [
+								"price"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	],
 	"event": [
