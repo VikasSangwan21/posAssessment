@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Regression Tests Juice Shop">
+<suite name="Regression Tests POS">
 
     <listeners>
         <listener class-name="com.assessment.listeners.AnnotationTransformer"/>

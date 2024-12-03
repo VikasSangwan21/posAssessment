@@ -37,8 +37,14 @@
 
 - The test execution can be modified by updating the variables in config.properties file present in path below:
 - src\test\resources\config\config.properties
+- to run headless update HEADLESS = true
+- to retry update RETRY_TEST_FAIL = 1
 
+**Test Data**
 
+- The test Data is stored in an excel file at the following location
+- src\test\resources\testdataJuiceShop\TestData.xlsx
+- the sheets can be named as per environment
 
 **Test Results**
 
