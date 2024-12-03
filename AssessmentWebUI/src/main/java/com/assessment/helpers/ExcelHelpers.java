@@ -27,6 +27,7 @@ public class ExcelHelpers {
     private Map<String, Integer> columns = new HashMap<>();
 
     public ExcelHelpers() {
+        setExcelFile(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_TEST_DATA"), "preprod");
     }
 
     //Set Excel File

@@ -2,17 +2,19 @@ package com.assessment.common;
 
 import com.assessment.driver.DriverManager;
 import com.assessment.driver.TargetFactory;
+import com.assessment.helpers.ExcelHelpers;
 import com.assessment.helpers.PropertiesHelpers;
+import com.assessment.helpers.SystemHelpers;
 import com.assessment.keywords.WebUI;
 import com.assessment.listeners.TestListener;
-import com.assessment.testcases.JuiceBox.BasePageJB;
+import com.assessment.testcases.POS.BasePage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
 
 @Listeners({TestListener.class})
-public class BaseTest extends BasePageJB {
+public class BaseTest extends BasePage {
 
     @Parameters("BROWSER")
     @BeforeMethod

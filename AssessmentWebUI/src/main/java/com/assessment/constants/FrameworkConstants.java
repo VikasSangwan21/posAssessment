@@ -22,7 +22,7 @@ public final class FrameworkConstants {
     public static final String JSON_DATA_FILE_PATH = PropertiesHelpers.getValue("JSON_DATA_FILE_PATH");
     
     // JuiceBox
-    public static final String URL_JUICEBOX = PropertiesHelpers.getValue("URL_JUICEBOX");
+    public static final String URL_POS = PropertiesHelpers.getValue("URL_POS");
 
     public static final String BROWSER = PropertiesHelpers.getValue("BROWSER");
       public static final String REMOTE_URL = PropertiesHelpers.getValue("REMOTE_URL");

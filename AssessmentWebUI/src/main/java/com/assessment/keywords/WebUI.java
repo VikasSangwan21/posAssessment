@@ -5,13 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v130.network.Network;
-import org.openqa.selenium.devtools.v130.network.model.Headers;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -26,15 +20,12 @@ import com.assessment.helpers.SystemHelpers;
 import com.assessment.report.AllureManager;
 import com.assessment.report.ExtentReportManager;
 import com.assessment.report.ExtentTestManager;
-import com.assessment.utils.BrowserInfoUtils;
 import com.assessment.utils.DateUtils;
 import com.assessment.utils.LogUtils;
 
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -84,6 +75,30 @@ public class WebUI {
             }
             //CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug(screenshotName));
             AllureManager.takeScreenshotStep();
+        }
+    }
+
+    
+    /**
+     * Verify Element List
+     *
+     * @param listLocator
+     */
+    public static boolean verifyMultipleElementsAreDisplayed(By by) {
+        smartWait();
+        LogUtils.info("Verify elements visible " + by);
+        try {
+            List<WebElement> elements = DriverManager.getDriver().findElements(by);
+            if(elements.size()>=1){
+                return true;
+            }else{
+                LogUtils.info("❌ Multiple elements are NOT visible. " + by);
+                return false; 
+            }
+        } catch (Exception e) {
+            LogUtils.info("❌ The element is NOT visible. " + by);
+            Assert.fail("❌ The element is NOT visible. " + by);
+            return false;
         }
     }
 
@@ -2543,35 +2558,6 @@ public class WebUI {
             }
         }
     }
-
-//    /**
-//     * Get the value of a column from the table
-//     *
-//     * @param column column position
-//     * @return array of values of a column
-//     */
-//    public static ArrayList getValueTableByColumn(int column) {
-//        smartWait();
-//
-//        List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath("//tbody/tr"));
-//        sleep(1);
-//        LogUtils.info("Number of results for column (" + column + "): " + totalRows.size()); //Không thích ghi log thì xóa nhen
-//
-//        ArrayList arrayList = new ArrayList<String>();
-//
-//        if (totalRows.size() < 1) {
-//            LogUtils.info("Not found value !!");
-//        } else {
-//            for (int i = 1; i <= totalRows.size(); i++) {
-//                boolean res = false;
-//                WebElement title = DriverManager.getDriver().findElement(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
-//                arrayList.add(title.getText());
-//                LogUtils.info("Row " + i + ":" + title.getText()); //Không thích ghi log thì xóa nhen
-//            }
-//        }
-//
-//        return arrayList;
-//    }
 
     /**
      * Get the value of a column from the table

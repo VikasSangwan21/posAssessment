@@ -31,7 +31,7 @@ public interface Configuration extends Config {
     @Key("EXCEL_DATA_FILE_PATH")
     String EXCEL_DATA_FILE_PATH();
 
-    @Key("EXCEL_JS_LOGIN")
-    String EXCEL_JS_LOGIN();
+    @Key("EXCEL_TEST_DATA")
+    String EXCEL_TEST_DATA();
 
 }

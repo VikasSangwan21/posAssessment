@@ -6,10 +6,10 @@
         <listener class-name="com.assessment.listeners.AnnotationTransformer"/>
     </listeners>
 
-    <test name="Regression Test JuiceBox">
+    <test name="Regression Test POS">
         <parameter name="BROWSER" value="chrome"/>
         <classes>
-            <class name="com.assessment.testcases.JuiceBox.testcases.JuiceShopTest"/>
+            <class name="com.assessment.testcases.POS.testcases.PosTest"/>
         </classes>
     </test>
 
